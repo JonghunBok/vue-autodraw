@@ -49,15 +49,31 @@ export default {
     },
 
     commitCurrentShape () {
+      const API_ENDPOINT = 'https://inputtools.google.com/request?ime=handwriting&app=autodraw&dbg=1&cs=1&oe=UTF-8'
       this.shapes.push(this.currentShape)
-      /*
+
       const drawOptions = {
         canvasWidth: this.canvas.width,
         canvasHeight: this.canvas.height
       }
-      */
 
-      // this.
+      this.axios.post(API_ENDPOINT, {
+        input_type: 0,
+        requests: [{
+          language: 'autodraw',
+          writing_guide: {
+            width: drawOptions.canvasWidth,
+            height: drawOptions.canvasHeight
+          },
+          ink: this.shapes
+        }]
+      }).then(response => {
+        console.log('response has come!')
+        console.log(response)
+        console.log(response.data[0])
+        console.log(response.data[1][0][0])
+        console.log(response.data[1][0][1])
+      })
     },
 
     draw (mouseEvent) {
@@ -148,6 +164,7 @@ export default {
 
     console.log(this.context)
     console.log(this.canvas)
+    console.log(this.axios)
   }
 }
 </script>
