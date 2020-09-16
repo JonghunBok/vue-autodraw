@@ -68,11 +68,11 @@ export default {
           ink: this.shapes
         }]
       }).then(response => {
-        console.log('response has come!')
         console.log(response)
         console.log(response.data[0])
         console.log(response.data[1][0][0])
-        console.log(response.data[1][0][1])
+        this.$store.state.suggestions = response.data[1][0][1]
+        console.log(this.$store.state.suggestions)
       })
     },
 
