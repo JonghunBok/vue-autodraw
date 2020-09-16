@@ -1,8 +1,8 @@
 <template>
-  <div class="canvas-wrapper">
+  <v-sheet elevation="3" class="canvas-wrapper">
     <canvas id="canvas"></canvas>
     <v-btn @click="eraseCanvas">clear canvas</v-btn>
-  </div>
+  </v-sheet>
 
 </template>
 

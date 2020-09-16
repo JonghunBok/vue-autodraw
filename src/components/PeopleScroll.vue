@@ -9,7 +9,27 @@ export default {
   name: 'PeopleScroll',
   props: {
     msg: String
-  }
+  },
+  data: () => ({
+    dummyPeople: [
+      {
+        name: '철수',
+        mediaStream: null
+      },
+      {
+        name: '영희',
+        mediaStream: null
+      },
+      {
+        name: '민수',
+        mediaStream: null
+      },
+      {
+        name: '로버트 다우니 주니어',
+        mediaStream: null
+      }
+    ]
+  })
 }
 </script>
 
