@@ -1,22 +1,20 @@
 <template>
-  <div class="home">
-    <v-container>
-      <v-row>
-        <PeopleScroll />
-      </v-row>
-      <v-row>
-        <SuggestionScroll />
-      </v-row>
-      <v-row>
-        <v-col>
-          <DrawToolBar />
-        </v-col>
-        <v-col>
-          <CanvasWrapper />
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+  <v-container class="home">
+    <v-row>
+      <PeopleScroll />
+    </v-row>
+    <v-row>
+      <SuggestionScroll class="suggestion-scroll"/>
+    </v-row>
+    <v-row>
+      <v-col>
+        <DrawToolBar />
+      </v-col>
+      <v-col>
+        <CanvasWrapper />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -36,3 +34,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.home {
+  height: 100%;
+}
+
+.suggestion-scroll {
+  height: 15%;
+}
+
+</style>

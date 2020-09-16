@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import { FETCH_SUGGESTIONS } from '@/store/actions.type'
+
 export default {
   name: 'CanvasWrapper',
   data: () => ({
@@ -49,7 +51,7 @@ export default {
     },
 
     commitCurrentShape () {
-      const API_ENDPOINT = 'https://inputtools.google.com/request?ime=handwriting&app=autodraw&dbg=1&cs=1&oe=UTF-8'
+      // const API_ENDPOINT = 'https://inputtools.google.com/request?ime=handwriting&app=autodraw&dbg=1&cs=1&oe=UTF-8'
       this.shapes.push(this.currentShape)
 
       const drawOptions = {
@@ -57,6 +59,19 @@ export default {
         canvasHeight: this.canvas.height
       }
 
+      this.$store.dispatch(FETCH_SUGGESTIONS, {
+        input_type: 0,
+        requests: [{
+          language: 'autodraw',
+          writing_guide: {
+            width: drawOptions.canvasWidth,
+            height: drawOptions.canvasHeight
+          },
+          ink: this.shapes
+        }]
+      })
+
+      /*
       this.axios.post(API_ENDPOINT, {
         input_type: 0,
         requests: [{
@@ -74,6 +89,7 @@ export default {
         this.$store.state.suggestions = response.data[1][0][1]
         console.log(this.$store.state.suggestions)
       })
+      */
     },
 
     draw (mouseEvent) {
