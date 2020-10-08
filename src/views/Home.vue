@@ -1,35 +1,19 @@
 <template>
-  <v-container class="home">
-    <v-row>
-      <PeopleScroll />
-    </v-row>
-    <v-row>
-      <SuggestionScroll class="suggestion-scroll"/>
-    </v-row>
-    <v-row>
-      <v-col>
-        <DrawToolBar />
-      </v-col>
-      <v-col>
-        <CanvasWrapper />
-      </v-col>
-    </v-row>
-  </v-container>
+  <div class="home">
+    <PeopleScroll class="people-scroll"/>
+    <CanvasWrapper />
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import PeopleScroll from '@/components/PeopleScroll.vue'
-import SuggestionScroll from '@/components/SuggestionScroll.vue'
-import DrawToolBar from '@/components/DrawToolBar.vue'
 import CanvasWrapper from '@/components/CanvasWrapper.vue'
 
 export default {
   name: 'Home',
   components: {
     PeopleScroll,
-    SuggestionScroll,
-    DrawToolBar,
     CanvasWrapper
   }
 }
@@ -37,11 +21,13 @@ export default {
 
 <style scoped>
 .home {
+  display: grid;
+  grid-template-columns: 25% 75%;
   height: 100%;
+  padding: 1em;
 }
 
-.suggestion-scroll {
-  height: 15%;
+.drawing-frame {
 }
 
 </style>

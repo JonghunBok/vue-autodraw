@@ -1,11 +1,9 @@
 <template>
-  <v-container>
+  <div>
     <v-row class="thumbs">
-      <v-col v-for="(icon, index) in icons" :key="index">
-        <img :src="icon">
-      </v-col>
+      <img v-for="(icon, index) in icons" :key="index" :src="icon">
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -66,14 +64,19 @@ export default {
 <style scoped>
 .thumbs {
   height: 100%;
+  width: 100%;
+  margin: 0;
   align-items: center;
   overflow-x: scroll;
   overflow-y: hidden;
+  display: flex;
+  flex-flow: row nowrap;
 }
 
-.thumbs div {
+.thumbs img {
   position: relative;
   height: 100%;
+  max-height: 60px;
 }
 
 .thumbs::-webkit-scrollbar {

@@ -1,16 +1,27 @@
 <template>
-  <v-sheet elevation="3" class="canvas-wrapper">
-    <canvas id="canvas"></canvas>
-    <v-btn @click="eraseCanvas">clear canvas</v-btn>
-  </v-sheet>
+  <div class="canvas-wrapper">
+    <DrawToolBar />
+    <div class="canvas-and-suggestions">
+      <SuggestionScroll class="suggestion-scroll"/>
+      <v-sheet elevation="3" class="canvas-sheet">
+        <canvas id="canvas"></canvas>
+      </v-sheet>
+    </div>
+  </div>
 
 </template>
 
 <script>
 import { FETCH_SUGGESTIONS } from '@/store/actions.type'
+import SuggestionScroll from '@/components/SuggestionScroll.vue'
+import DrawToolBar from '@/components/DrawToolBar.vue'
 
 export default {
   name: 'CanvasWrapper',
+  components: {
+    SuggestionScroll,
+    DrawToolBar
+  },
   data: () => ({
     context: null,
     canvas: null,
@@ -23,7 +34,9 @@ export default {
     highlightStartPoint: false,
     shapes: [],
     currentShape: [],
-    intervalLastPosition: [-1, -1]
+    intervalLastPosition: [-1, -1],
+    savedHeight: '',
+    savedWidth: ''
   }),
   methods: {
     eraseCanvas () {
@@ -165,22 +178,48 @@ export default {
       this.previousY = this.currentY
       this.currentX = mouseEvent.clientX - this.canvas.offsetLeft
       this.currentY = mouseEvent.clientY - this.canvas.offsetTop
+    },
+
+    resizeCanvas () {
+      this.canvas.width = this.canvas.offsetWidth
+      this.canvas.height = this.canvas.offsetHeight
     }
   },
 
   mounted () {
     this.canvas = this.$el.querySelector('#canvas')
     this.context = this.canvas.getContext('2d')
+    this.sheet = this.$el.querySelector('.canvas-sheet')
+    window.addEventListener('resize', this.resizeCanvas)
+
+    this.resizeCanvas()
 
     const mouseEvents = ['mousemove', 'mousedown', 'mouseup', 'mouseout']
 
     mouseEvents.map(eventName => {
       this.canvas.addEventListener(eventName, this.draw)
     })
-
-    console.log(this.context)
-    console.log(this.canvas)
-    console.log(this.axios)
   }
 }
 </script>
+
+<style>
+.canvas-wrapper {
+  display: grid;
+  grid-template-columns: 10% 90%;
+}
+
+.canvas-and-suggestions {
+  display: grid;
+  grid-template-rows: 8% 92%;
+}
+
+.suggestion-scroll {
+  overflow: hidden;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+}
+</style>
